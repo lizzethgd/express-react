@@ -1,13 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {NavLink} from 'react-router-dom'
 
 const Student = props => {
     return (
         <div>
-            <h4>FirstName LastName</h4>
-            <p>Age: 25</p>
-            <p>Finland, Helsinki</p>
-            <p>HTML. CSS, JS</p>
+            <NavLink className="navlist"  to={`/students/${props.student._id}`} > 
+            <p>{props.student.firstName} {props.student.lastName}</p>
+            <p>Age: {props.student.age}</p>
+            <p>{props.student.country}</p>
+            <p>{props.student.skills}</p>
+            </NavLink>
         </div>
     )
 }

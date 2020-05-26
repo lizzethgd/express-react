@@ -5,14 +5,20 @@ import Footer from './Footer'
 import '../assets/styles/main.css'
 
 
-const Layout = ({children }) => {
+class Layout extends React.Component{
+    constructor(props) {
+        super(props);
+        this.wrapper = React.createRef(); 
+     }
+     render(){
     return (
         <>
         <Header />
-        <main>{children}</main>
+        <main ref={this.wrapper}>{this.props.children}</main>
         <Footer />   
         </>
     )
+}
 }
 
 Layout.propTypes = {

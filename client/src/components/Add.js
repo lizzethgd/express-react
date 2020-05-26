@@ -1,56 +1,102 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+const randomId = (n=6) => {
+  const str =
+    '0123456ABCDEFGHIJKLMNOPKRSTUVWXYZabcdefghihjklmnopqrstuvwxyz'
+  let id = ''
+  for (let i = 0; i < n; i++) {
+    let index = Math.floor(Math.random() * str.length)
+    id = id + str[index]
+  }
+  return id
+}
+
 const Add = props => {
+   
+  const handleSubmit = e => {
+    e.preventDefault()
+    const formData = {...props.formData, _id:randomId()}
+    props.addStudent(formData)
+    props.history.push('/students')
+  }
     return (
         <div className='' >
          <h3>Add students</h3>
-             <form >
+        
+        <form onSubmit={handleSubmit}>
          
          <div className="form-group">
-           <label for="firstName">First Name</label>
+           <label htmlFor="firstName">First Name</label>
            <input
              id="firstName"
              type="text"
              name="firstName"
-             placeholder="First name" />
-​
+             value={props.formData.firstName}
+             onChange={props.handleChange}
+             placeholder="Firstname" />
          </div>
+
          <div className="form-group">
-           <label for="lastName">Last Name</label>
+           <label htmlFor="lastName">Last Name</label>
            <input
              id="lastName"
              type="text"
              name="lastName"
-             placeholder="Last name" />
-​
+             value={props.formData.lastName}
+             onChange={props.handleChange}
+             placeholder="Lastname" />
          </div>
+
          <div className="form-group">
            <label htmlFor="country">Country</label>
-           <input id="country" type="text" name="country" placeholder="Country" />
-​
+           <input 
+             id="country" 
+             type="text" 
+             name="country" 
+             value={props.formData.country}
+             onChange={props.handleChange}
+             placeholder="Country" />
          </div>
 ​
          <div className="form-group">
            <label htmlFor="age">Age</label>
-           <input type="text" id="age" name="age" placeholder="Age" />
-​
+           <input  
+             id="age" 
+             type="text"
+             name="age" 
+             value={props.formData.age}
+             onChange={props.handleChange}
+             placeholder="Age" />
          </div>
 ​
          <div className="form-group">
            <label htmlFor="skills">Skills</label>
-           <textarea type="text" id="skills" name="skills" cols="120" rows="5"
-             value="Skills separated by comma..."></textarea>
-​
+           <textarea 
+             id="skills"
+             type="text" 
+             name="skills" 
+             cols="120" 
+             rows="5"
+             value={props.formData.skills}
+             onChange={props.handleChange}
+             placeholder="Skills separated by comma..."></textarea>
          </div>
          
          <div className="form-group">
            <label htmlFor="bio">Your bio</label>
-           <textarea id="bio" name="bio" cols="120" rows="10" placeholder="Bio"></textarea>
+           <textarea 
+             id="bio"
+             type="text" 
+             name="bio" 
+             cols="120" 
+             rows="10"
+             value={props.formData.bio}
+             onChange={props.handleChange} 
+             placeholder="Bio"></textarea>
          </div>
 ​
-​
-         <button className="button" type="submit" id="submit-button">Add</button> <a href="/students" class="button" role="button" aria-pressed="true">Cancel</a>
+         <button className="button" type="submit" id="submit-button">Add</button> <a href="/students" className="button" role="button" aria-pressed="true">Cancel</a>
        </form>
         </div>
     )
