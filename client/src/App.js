@@ -1,5 +1,6 @@
 import React from 'react'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import axios from 'axios'
 import Home from './components/Home'
 import About from './components/About'
 import Contact from './components/Contact'
@@ -22,7 +23,24 @@ class App extends React.Component {
       skills: [],
       bio: ''
     },
-    editing:false
+    editing:false,
+    errors: {}
+  }
+  
+  componentDidMount(){
+    this.fetchData()
+   }
+
+  fetchData = () => {
+    const url = '/api/v.1.0/students'
+    axios.get(url).then(response => {
+      console.log(response)
+      this.setState({ students: response.data})
+    })
+    .catch(err => {
+      console.log(err.response.data)
+      this.setState({ err: err.response.data })
+    })
   }
 
   handleChange= e =>{
@@ -32,26 +50,25 @@ class App extends React.Component {
   }
 
   addStudent= student => {
+    this.fetchData()
     this.setState({students: [...this.state.students, student]})
   }
 
-  editStudent= student => {
+  editStudent= formData => {
     this.setState({ editing: true})
   }
 
-  updateStudent= (student, id) => {
+  updateStudent= formdata => {
     //const students = this.state.students.map(st => { st._id == id ? st=student : st=st })
-    const students = this.state.students.map(st => {
-    if (st._id == id) { return student } 
+    /*const students = this.state.students.map(st => {
+    if (st._id === id) { return student } 
       return st 
-    })
-    this.setState({students, editing: false})
+    })*/
+    this.setState({formdata, editing: false})
   }
 
-  deleteStudent= (id, history) => {
-    const students = this.state.students.filter(st => st._id != id)
-      this.setState({students})
-      history.push('/students')
+  deleteStudent= () => {
+    this.fetchData()
   }
 
 

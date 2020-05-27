@@ -25,7 +25,7 @@ const Navibar = props => {
           <NavLink className="navlink" to="/contact">Contact</NavLink>
           <NavLink className="navlink" to="/students">Students</NavLink>
           <NavLink className="navlink" to="/students/add">Add</NavLink>
-          <Nav.Link href="">API</Nav.Link>
+          <Nav.Link href="http://localhost:3500/api/v.1.0/students">API</Nav.Link>
         </Nav>
         </Navbar.Collapse>
       </Navbar>

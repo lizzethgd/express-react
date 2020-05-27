@@ -1,15 +1,27 @@
 import React from 'react'
+import axios from 'axios'
 import PropTypes from 'prop-types'
 
 class Edit extends React.Component {
-  componentDidMount(){}
+  componentDidMount(){
+    const url = 'http://localhost:3500/api/v.1.0/students'
+    axios.get(url).then(response => {
+      const id= this.props.match.params.id
+      const student = response.data.find(st => st._id === id)
+      this.props.updateStudent(student)
+    })
+    
+  }
     handleSubmit = e => {
       e.preventDefault()
       const id= this.props.match.params.id
-      const formData = {...this.props.formData, _id:id}
-      this.props.updateStudent( formData, id)
-      this.props.history.push('/students')
+      const formData = {...this.props.formData}  
+      const url = `http://localhost:3500/api/v.1.0/students/${id}/edit`
+    axios.put(url, formData).then(response => {console.log('edited')})
+    this.props.updateStudent( formData, id)
+    this.props.history.push('/students')    
 }
+
   render(){
     console.log(this.props)
     return (

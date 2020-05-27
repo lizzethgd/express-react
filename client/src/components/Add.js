@@ -1,22 +1,14 @@
 import React from 'react'
+import axios from 'axios'
 import PropTypes from 'prop-types'
-
-const randomId = (n=6) => {
-  const str =
-    '0123456ABCDEFGHIJKLMNOPKRSTUVWXYZabcdefghihjklmnopqrstuvwxyz'
-  let id = ''
-  for (let i = 0; i < n; i++) {
-    let index = Math.floor(Math.random() * str.length)
-    id = id + str[index]
-  }
-  return id
-}
 
 const Add = props => {
    
   const handleSubmit = e => {
     e.preventDefault()
-    const formData = {...props.formData, _id:randomId()}
+    const formData = props.formData
+    const url = 'http://localhost:3500/api/v.1.0/students'
+    axios.post(url, formData).then(response => {console.log('saved')})
     props.addStudent(formData)
     props.history.push('/students')
   }
