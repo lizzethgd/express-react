@@ -8,6 +8,7 @@ import Add from './components/Add'
 import Students from './components/Students'
 import Details from './components/Details'
 import Edit from './components/Edit'
+import Spinner from './components/Spinner'
 import Layout from "./components/Layout"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,12 +35,14 @@ class App extends React.Component {
   fetchData = () => {
     const url = '/api/v.1.0/students'
     axios.get(url).then(response => {
-      console.log(response)
+      console.log(response.data)
       this.setState({ students: response.data})
+      console.log(this.state)
+      console.log('fetched')
     })
     .catch(err => {
       console.log(err.response.data)
-      this.setState({ err: err.response.data })
+      this.setState({ errors : err.response.data })
     })
   }
 
@@ -49,32 +52,36 @@ class App extends React.Component {
     this.setState({formData})
   }
 
-  addStudent= student => {
+  addStudent= () => {
     this.fetchData()
-    this.setState({students: [...this.state.students, student]})
+    const formData = {
+      firstName: '',
+      lastName: '',
+      age: '',
+      country: '',
+      skills: '',
+      bio: ''
+    }
+    this.setState({ formData })
   }
 
-  editStudent= formData => {
+  editStudent= student => {
     this.setState({ editing: true})
   }
 
-  updateStudent= formdata => {
-    //const students = this.state.students.map(st => { st._id == id ? st=student : st=st })
-    /*const students = this.state.students.map(st => {
-    if (st._id === id) { return student } 
-      return st 
-    })*/
-    this.setState({formdata, editing: false})
+  updateStudent= () => {
+    this.fetchData()
+    console.log('uptated')
+    this.setState({ editing: false})
   }
 
   deleteStudent= () => {
     this.fetchData()
   }
 
-
   render() {
+    //console.log(this.state)
     const { students,formData }= this.state
-    console.log(this.state)
     return ( 
       <BrowserRouter>  
       <div className="App">
@@ -83,10 +90,11 @@ class App extends React.Component {
           <Route exact path='/' component={Home} />
           <Route path='/about' component={About} />
           <Route path='/contact' component={Contact} />
+          <Route path='/spinner' component={Spinner} />
           <Route exact path='/students' component={() => <Students students={students} />} />
           <Route path='/students/add' render={props => <Add {...props} formData={formData} handleChange={this.handleChange} addStudent={this.addStudent} /> }  />
-          <Route path='/students/edit/:id' render={props => <Edit {...props}  formData={formData}  handleChange={this.handleChange} updateStudent={this.updateStudent}  />}  /> 
-          <Route path='/students/:id' component={props => <Details {...props} students={students} deleteStudent={this.deleteStudent}/>} />
+          <Route path='/students/edit/:id' render={props => <Edit {...props} students={students} formData={formData}  handleChange={this.handleChange} addStudent={this.addStudent} updateStudent={this.updateStudent}  />}  /> 
+          <Route path='/students/:id' component={props => <Details {...props} students={students} deleteStudent={this.deleteStudent} editing={this.editStudent}/> } />
           </Switch> 
         </Layout>
         </div>

@@ -35,7 +35,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 
 //Middle ware
-app.use((req,res, next)=>{
+/*app.use((req,res, next)=>{
     const user= os.hostname
     const page= req.url
     const date = showDateTime()
@@ -47,7 +47,7 @@ app.use((req,res, next)=>{
     })
     //must thing to do
     next()
-    })
+    })*/
 
 app.use('/', Router) 
 

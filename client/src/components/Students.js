@@ -1,7 +1,6 @@
 import React from 'react'
 import Student from './Student'
 
-import PropTypes from 'prop-types'
 
 const Students = props => {
     if (props.students.length>0){

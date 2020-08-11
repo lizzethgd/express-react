@@ -1,27 +1,7 @@
 const express= require('express')
 const Router = express.Router()
-const { /*showHome, showAbout, showContact, showStudents, showStudent, showAdd, showEdit,*/
-    getAllStudents, getSingleStudent, addStudent, editStudent, deleteStudent} = require('../controller/controllers')
+const { getAllStudents, getSingleStudent, addStudent, editStudent, deleteStudent} = require('../controller/controllers')
 
-//view or ui
-
-/*
-Router.get('/', showHome)
-
-Router.get('/about', showAbout)
-
-Router.get('/contact', showContact)
-
-Router.get('/students', showStudents)
-
-Router.get('/students/:id', showStudent)
-
-Router.get('/add', showAdd)
-
-Router.get('/student/:id/edit', showEdit)
-*/
-
-//data as json or object
 
 Router.get('/api/v.1.0/students/', getAllStudents)
 

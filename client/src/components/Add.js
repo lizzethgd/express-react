@@ -1,20 +1,21 @@
 import React from 'react'
 import axios from 'axios'
-import PropTypes from 'prop-types'
 
 const Add = props => {
    
+  
   const handleSubmit = e => {
     e.preventDefault()
     const formData = props.formData
-    const url = 'http://localhost:3500/api/v.1.0/students'
-    axios.post(url, formData).then(response => {console.log('saved')})
-    props.addStudent(formData)
+    console.log(formData)
+    const url = '/api/v.1.0/students'
+    axios.post(url, formData).then(response => {console.log('saved by addpage')})
+    props.addStudent()
     props.history.push('/students')
   }
     return (
         <div className='' >
-         <h3>Add students</h3>
+         <h3>Add student</h3>
         
         <form onSubmit={handleSubmit}>
          
@@ -69,7 +70,7 @@ const Add = props => {
              type="text" 
              name="skills" 
              cols="120" 
-             rows="5"
+             rows="3"
              value={props.formData.skills}
              onChange={props.handleChange}
              placeholder="Skills separated by comma..."></textarea>
@@ -82,7 +83,7 @@ const Add = props => {
              type="text" 
              name="bio" 
              cols="120" 
-             rows="10"
+             rows="4"
              value={props.formData.bio}
              onChange={props.handleChange} 
              placeholder="Bio"></textarea>
