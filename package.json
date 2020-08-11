@@ -15,6 +15,9 @@
     "type": "git",
     "url": "git+https://github.com/lizzethgd/express-react.git"
   },
+  "engines": {
+    "node": "12.16.1"
+},
   "keywords": [
     "'JS",
     "React",
