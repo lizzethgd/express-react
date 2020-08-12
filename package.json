@@ -4,12 +4,11 @@
   "description": "'MERN stack aplication: MongoDb, Express, React and Node.'",
   "main": "server.js",
   "scripts": {
-    "client-install": "yarn --prefix client",
+   
     "start": "node server.js",
     "server": "nodemon server.js",
-    "client": "yarn start --prefix client",
-    "dev": "concurrently \"yarn run server\" \"cd client && yarn  && yarn start\"",
-    "heroku-postbuild": "cd client && yarn && yarn run build"
+    
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
     "type": "git",
